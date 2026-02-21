@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JS Drum Kit</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div>music player</div>
+    <div class="keys">
+      <div class="upperRow">
+        <div data-key="81" class="key">
+          <kbd>q</kbd>
+          <span class="sound">synth</span>
+        </div>
+        <div data-key="87" class="key">
+          <kbd>w</kbd>
+          <span class="sound">bass</span>
+        </div>
+        <div data-key="69" class="key">
+          <kbd>e</kbd>
+          <span class="sound">Saxophone</span>
+        </div>
+        <div data-key="82" class="key">
+          <kbd>r</kbd>
+          <span class="sound">misc</span>
+        </div>
+        <div data-key="84" class="key">
+          <kbd>t</kbd>
+          <span class="sound">Percussion</span>
+        </div>
+        <div data-key="89" class="key">
+          <kbd>y</kbd>
+          <span class="sound">piano</span>
+        </div>
+        <div data-key="85" class="key">
+          <kbd>u</kbd>
+          <span class="sound">riser</span>
+        </div>
+        <div data-key="73" class="key">
+          <kbd>i</kbd>
+          <span class="sound">keys</span>
+        </div>
+        <div data-key="79" class="key">
+          <kbd>o</kbd>
+          <span class="sound">hiphop</span>
+        </div>
+        <div data-key="80" class="key">
+          <kbd>p</kbd>
+          <span class="sound">electronica</span>
+        </div>
+      </div>
+
+      <div class="midRow">
+        <div data-key="65" class="key">
+          <kbd>A</kbd>
+          <span class="sound">electronica</span>
+        </div>
+        <div data-key="83" class="key">
+          <kbd>S</kbd>
+          <span class="sound">pad</span>
+        </div>
+        <div data-key="68" class="key">
+          <kbd>D</kbd>
+          <span class="sound">violin</span>
+        </div>
+        <div data-key="70" class="key">
+          <kbd>F</kbd>
+          <span class="sound">arp</span>
+        </div>
+        <div data-key="71" class="key">
+          <kbd>G</kbd>
+          <span class="sound">flute</span>
+        </div>
+        <div data-key="72" class="key">
+          <kbd>H</kbd>
+          <span class="sound">cymbal</span>
+        </div>
+        <div data-key="74" class="key">
+          <kbd>J</kbd>
+          <span class="sound">stab</span>
+        </div>
+        <div data-key="75" class="key">
+          <kbd>K</kbd>
+          <span class="sound">vocals</span>
+        </div>
+        <div data-key="76" class="key">
+          <kbd>L</kbd>
+          <span class="sound">drums</span>
+        </div>
+      </div>
+
+      <div class="lowerRow">
+        <div data-key="90" class="key">
+          <kbd>z</kbd>
+          <span class="sound">orchestra</span>
+        </div>
+        <div data-key="88" class="key">
+          <kbd>x</kbd>
+          <span class="sound">guitar-loop</span>
+        </div>
+        <div data-key="67" class="key">
+          <kbd>c</kbd>
+          <span class="sound">bass-wiggle</span>
+        </div>
+        <div data-key="86" class="key">
+          <kbd>v</kbd>
+          <span class="sound">drumloop</span>
+        </div>
+        <div data-key="66" class="key">
+          <kbd>b</kbd>
+          <span class="sound">run</span>
+        </div>
+        <div data-key="78" class="key">
+          <kbd>n</kbd>
+          <span class="sound">metronome</span>
+        </div>
+        <div data-key="77" class="key">
+          <kbd>m</kbd>
+          <span class="sound">harmonica</span>
+        </div>
+      </div>
+    </div>
+
+    <audio data-key="65" src="sounds/electronica.wav"></audio>
+    <audio data-key="83" src="sounds/pad.wav"></audio>
+    <audio data-key="68" src="sounds/violin.wav"></audio>
+    <audio data-key="70" src="sounds/arp.wav"></audio>
+    <audio data-key="71" src="sounds/flute.wav"></audio>
+    <audio data-key="72" src="sounds/cymbal.wav"></audio>
+    <audio data-key="74" src="sounds/stab.wav"></audio>
+    <audio data-key="75" src="sounds/vocals.wav"></audio>
+    <audio data-key="76" src="sounds/drums.wav"></audio>
+
+    <audio data-key="81" src="sounds/synth.wav"></audio>
+    <audio data-key="87" src="sounds/syntheticBass.wav"></audio>
+    <audio data-key="69" src="sounds/Saxophone.wav"></audio>
+    <audio data-key="82" src="sounds/misc.wav"></audio>
+    <audio data-key="84" src="sounds/Percussion.wav"></audio>
+    <audio data-key="89" src="sounds/piano.wav"></audio>
+    <audio data-key="85" src="sounds/riser.wav"></audio>
+    <audio data-key="73" src="sounds/keys.wav"></audio>
+    <audio data-key="79" src="sounds/hiphop.wav"></audio>
+    <audio data-key="80" src="sounds/electronica.wav"></audio>
+    <audio data-key="90" src="sounds/orchestra.wav"></audio>
+    <audio data-key="88" src="sounds/bass-wiggle-.mp3"></audio>
+    <audio data-key="67" src="sounds/guitar-loop-.mp3"></audio>
+    <audio data-key="86" src="sounds/sunflower-street-drumloop.mp3"></audio>
+    <audio data-key="66" src="sounds/run.mp3"></audio>
+    <audio data-key="78" src="sounds/metronome.mp3"></audio>
+    <audio data-key="77" src="sounds/harmonica.mp3"></audio>
+
+    <script>
+      let currentAudio = null;
+      window.addEventListener("keydown", function (e) {
+        console.log(e);
+        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+        const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+        if (!audio) return;
+        if (currentAudio) {
+          currentAudio.pause();
+          currentAudio.currentTime = 0;
+        }
+
+        // play new sound
+        audio.currentTime = 0;
+        audio.play();
+        currentAudio = audio;
+        console.log(currentAudio);
+
+        key.classList.add("playing");
+      });
+      // window.addEventListener("keyup", function (e) {
+      //   const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+      //   if (!audio) return;
+      //   audio.pause();
+      // });
+
+      function removetransition(e) {
+        if (e.propertyName != "transform") return;
+        console.log(e.propertyName);
+        console.log(this);
+        this.classList.remove("playing");
+      }
+
+      const keys = document.querySelectorAll(".key");
+
+      keys.forEach((key) =>
+        key.addEventListener("transitionend", removetransition),
+      );
+    </script>
+  </body>
+</html>
